@@ -11,43 +11,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MovieFactory {
-
-    String filePath;
+public class MovieFactory extends AbstractFactory<Movie> {
 
     public MovieFactory(String filePath) {
-        this.filePath = filePath;
+        super("ml-latest-small/movies.csv");
     }
 
-    List<Movie> readAll(){
-        InputStream inputStream = CsvParserExample.class.getClassLoader()
-                .getResourceAsStream(filePath);
-
-        InputStreamReader reader = new InputStreamReader(inputStream);
-
-        CSVFormat format = CSVFormat.RFC4180;
-        CSVParser parser = null;
-        try {
-            parser = new CSVParser(reader, format);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Nie znalazłem pliku :(");
-            return Collections.emptyList();
-        }
-
-        // iter
-        ArrayList<CSVRecord> list = new ArrayList<>();
-        parser.forEach(record -> list.add(record));
-
-        List<Movie> result = new ArrayList<>();
-
-        for (int i = 1; i < list.size(); i++) {
-            CSVRecord record = list.get(i);
-            result.add(parse(record));
-        }
-        return result;
-    }
-
+    @Override
     Movie parse(CSVRecord record){
         Integer id = Integer.valueOf(record.get(0));
         String title = record.get(1);
