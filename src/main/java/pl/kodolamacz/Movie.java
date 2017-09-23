@@ -23,4 +23,8 @@ public class Movie {
     public String getGenres() {
         return genres;
     }
+
+    public int getYear(){
+        return 0;
+    }
 }
