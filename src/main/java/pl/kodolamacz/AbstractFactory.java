@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class AbstractFactory<T> {
@@ -35,15 +36,16 @@ public abstract class AbstractFactory<T> {
             return Collections.emptyList();
         }
 
-        // iter
-        ArrayList<CSVRecord> list = new ArrayList<>();
-        parser.forEach(record -> list.add(record));
-
+        Iterator<CSVRecord> iterator = parser.iterator();
+        // czytamy z iteratora pierwszą linię, aby pozbyć
+        // się nagłówka
+        iterator.next();
         List<T> result = new ArrayList<>();
-
-        for (int i = 1; i < list.size(); i++) {
-            CSVRecord record = list.get(i);
-            result.add(parse(record));
+        // resztę danych (już bez nagłówka)
+        // wrzucamy do listy
+        while (iterator.hasNext()) {
+            CSVRecord next = iterator.next();
+            result.add(parse(next));
         }
         return result;
     }
