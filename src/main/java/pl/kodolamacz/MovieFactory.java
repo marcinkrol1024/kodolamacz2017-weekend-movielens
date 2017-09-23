@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MovieFactory {
 
-    List<Movie> readMovies(){
+    List<Movie> readAll(){
         InputStream inputStream = CsvParserExample.class.getClassLoader()
                 .getResourceAsStream("ml-latest-small/movies.csv");
 
@@ -33,11 +33,13 @@ public class MovieFactory {
         ArrayList<CSVRecord> list = new ArrayList<>();
         parser.forEach(record -> list.add(record));
 
+        List<Movie> result = new ArrayList<>();
+
         for (int i = 1; i < list.size(); i++) {
             CSVRecord record = list.get(i);
-            parse(record);
+            result.add(parse(record));
         }
-        return Collections.emptyList();
+        return result;
     }
 
     Movie parse(CSVRecord record){

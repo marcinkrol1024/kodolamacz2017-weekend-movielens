@@ -17,8 +17,7 @@ public class CsvParserExample {
 
         InputStreamReader reader = new InputStreamReader(inputStream);
 
-        CSVFormat format = CSVFormat.RFC4180;
-        CSVParser parser = new CSVParser(reader, format);
+        CSVParser parser = new CSVParser(reader, CSVFormat.RFC4180);
 
         // iter
         ArrayList<CSVRecord> list = new ArrayList<>();
