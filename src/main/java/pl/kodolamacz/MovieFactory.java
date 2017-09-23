@@ -13,9 +13,15 @@ import java.util.List;
 
 public class MovieFactory {
 
+    String filePath;
+
+    public MovieFactory(String filePath) {
+        this.filePath = filePath;
+    }
+
     List<Movie> readAll(){
         InputStream inputStream = CsvParserExample.class.getClassLoader()
-                .getResourceAsStream("ml-latest-small/movies.csv");
+                .getResourceAsStream(filePath);
 
         InputStreamReader reader = new InputStreamReader(inputStream);
 
